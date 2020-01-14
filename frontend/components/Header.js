@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import { APP_NAME } from '../config';
+import Link from 'next/link';
+
 import {
   Collapse,
   Navbar,
@@ -25,35 +27,19 @@ const Header = () => {
     return (
         <div>
           <Navbar color="light" light expand="md">
-            <NavbarBrand href="/">{APP_NAME}</NavbarBrand>
+            <Link href="/"><NavLink className="font-weight-bold">{APP_NAME}</NavLink></Link>
             <NavbarToggler onClick={toggle} />
             <Collapse isOpen={isOpen} navbar>
-              <Nav className="mr-auto" navbar>
-                <NavItem>
-                  <NavLink href="/components/">Components</NavLink>
-                </NavItem>
-                <NavItem>
-                  <NavLink href="https://github.com/reactstrap/reactstrap">GitHub</NavLink>
-                </NavItem>
-                <UncontrolledDropdown nav inNavbar>
-                  <DropdownToggle nav caret>
-                    Options
-                  </DropdownToggle>
-                  <DropdownMenu right>
-                    <DropdownItem>
-                      Option 1
-                    </DropdownItem>
-                    <DropdownItem>
-                      Option 2
-                    </DropdownItem>
-                    <DropdownItem divider />
-                    <DropdownItem>
-                      Reset
-                    </DropdownItem>
-                  </DropdownMenu>
-                </UncontrolledDropdown>
-              </Nav>
-              <NavbarText>Simple Text</NavbarText>
+                <Nav className="ml-auto" navbar>
+                    <NavItem>
+                        <Link href="/Signin">
+                            <NavLink className="d-inline-block">Signin</NavLink>
+                        </Link>
+                        <Link href="/signup">
+                            <NavLink className="d-inline-block">Signup</NavLink>
+                        </Link>
+                    </NavItem>
+                </Nav>
             </Collapse>
           </Navbar>
         </div>
