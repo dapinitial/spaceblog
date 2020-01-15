@@ -15,32 +15,33 @@ const SignupComponent = () => {
 
     const { name, email, password, error, loading, message, showForm } = values;
 
-    const handleChange = name => (e) => {
-        //e.preventDefault();
+    const handleChange = name => e => {
+        e.preventDefault();
         setValues({...values, error: false, [name]: e.target.value});
-        //console.log(e.target.value);
+        console.log(e.target.value);
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = e => {
         e.preventDefault();
-        //console.table({ name, email, password, error, loading, message, showForm });
+        console.table({ name, email, password, error, loading, message, showForm });
         setValues({ ...values, loading: true, error: false });
         const user = { name, email, password };
 
         signup(user)
-        .then((data) => {
+        .then(data => {
             if (data.error) {
                 setValues({ 
                     ...values, 
                     error: data.error, 
                     loading: false 
-                })
+                });
             } else {
                 setValues({
                     ...values, 
                     name: '', 
                     email: '', 
                     password: '', 
+                    error: '',
                     loading: false, 
                     message: data.message, 
                     showForm: false

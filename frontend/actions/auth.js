@@ -5,13 +5,14 @@ export const signup = async (user) => {
     try {
         const response = await fetch(`${API}/signup`, {
             method: 'POST',
+            cache: 'no-cache',
+            credentials: 'same-origin',
             headers: {
                 Accept: 'application/json',
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(user)
         });
-        console.log(response.json());
         return response.json();
     }
     catch (err) {
