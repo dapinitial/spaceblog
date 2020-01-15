@@ -1,12 +1,11 @@
 import fetch from 'isomorphic-fetch';
 import { API } from '../config';
-
-export const signup = async (user) => {
+ 
+export const signup = async user => {
     try {
         const response = await fetch(`${API}/signup`, {
             method: 'POST',
-            cache: 'no-cache',
-            credentials: 'same-origin',
+ 
             headers: {
                 Accept: 'application/json',
                 'Content-Type': 'application/json'
@@ -14,8 +13,7 @@ export const signup = async (user) => {
             body: JSON.stringify(user)
         });
         return response.json();
-    }
-    catch (err) {
+    } catch (err) {
         return console.log(err);
     }
 };

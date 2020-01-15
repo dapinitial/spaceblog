@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { signup } from '../../actions/auth';
+import Router from 'next/router';
 
 const SignupComponent = () => {
 

@@ -13,6 +13,11 @@ const authRoutes = require('./routes/auth');
 // app
 const app = express();
 
+// cors
+if (process.env.NODE_ENV === 'development') {
+  app.use(cors({ origin: `${process.env.CLIENT_URL}` }));
+}
+
 // db
 const mongooseOptions = {
   useUnifiedTopology: true,
@@ -46,18 +51,6 @@ app.use(cookieParser());
 // routes middleware
 app.use('/api', blogRoutes);
 app.use('/api', authRoutes);
-
-// cors
-if (process.env.NODE_ENV === 'development') {
-  app.use(cors({ origin: `${process.env.CLIENT_URL}` }));
-}
-
-app.use(
-  cors({
-    origin: "http://localhost:3000", // restrict calls to those this address
-    methods: ['GET', 'PUT', 'POST']
-  })
-);
 
 // routes
 app.get('/api', (req, res) => {
