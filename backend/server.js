@@ -47,10 +47,18 @@ app.use(cookieParser());
 app.use('/api', blogRoutes);
 app.use('/api', authRoutes);
 
-//cors
+// cors
 if (process.env.NODE_ENV === 'development') {
   app.use(cors({ origin: `${process.env.CLIENT_URL}` }));
 }
+
+app.use(
+  cors({
+    origin: "http://localhost:3000", // restrict calls to those this address
+    methods: ['GET', 'PUT', 'POST']
+  })
+);
+
 // routes
 app.get('/api', (req, res) => {
   res.json({ time: Date().toString() });
