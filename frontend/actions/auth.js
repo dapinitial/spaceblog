@@ -36,6 +36,17 @@ export const signin = async user => {
     }
 };
 
+// sign out
+export const signout = next => {
+    removeCookie('token');
+    removeLocalStorage('user');
+    next();
+
+    return fetch(`${API}/signout`, {method: 'GET'}).then(response => {
+        console.log('signout success');
+    }).catch(err => console.log(err));
+};
+
 // set cookie
 export const setCookie = (key, value) => {
     if (process.browser) {
@@ -52,20 +63,20 @@ export const removeCookie = key => {
 // get cookie
 export const getCookie = key => {
     if (process.browser) {
-        cookie.get(key);
+        return cookie.get(key);
     }
 };
 
-// localstorage
+// localStorage
 export const setLocalStorage = (key, value) => {
     if (process.browser) {
-        localstorage.setItem(key, JSON.stringify(value));
+        localStorage.setItem(key, JSON.stringify(value));
     }
 };
 
 export const removeLocalStorage = key => {
     if (process.browser) {
-        localstorage.removeItem(key);
+        localStorage.removeItem(key);
     }
 };
 
@@ -80,11 +91,11 @@ export const isAuth = () => {
     if (process.browser) {
         const cookieChecked = getCookie('token');
         if (cookieChecked) {
-            if (localstorage.getItem('user')) {
-                return JSON.parse();
+            if (localStorage.getItem('user')) {
+                return JSON.parse(localStorage.getItem('user'));
             } else {
                 return false;
             }
         }
     }
-}
+};
