@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const {requireSignin, adminMiddleware} = require('../controllers/auth');
+const {requireSignin, authMiddleware} = require('../controllers/auth');
 const {read} = require('../controllers/user');
 
-router.get('/profile', requireSignin, adminMiddleware, read);
+router.get('/profile', requireSignin, authMiddleware, read);
 module.exports = router;
