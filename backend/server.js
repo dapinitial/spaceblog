@@ -6,23 +6,24 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 require('dotenv').config();
 
-// bring routes 
+// bring routes
 const blogRoutes = require('./routes/blog');
 const authRoutes = require('./routes/auth');
+const userRoutes = require('./routes/user');
 
 // app
 const app = express();
 
 // cors
 if (process.env.NODE_ENV === 'development') {
-  app.use(cors({ origin: `${process.env.CLIENT_URL}` }));
+  app.use(cors({origin: `${process.env.CLIENT_URL}`}));
 }
 
 // db
 const mongooseOptions = {
   useUnifiedTopology: true,
-  useNewUrlParser: true, 
-  useCreateIndex: true, 
+  useNewUrlParser: true,
+  useCreateIndex: true,
   useFindAndModify: false,
   autoIndex: false, // Don't build indexes
   poolSize: 10, // Maintain up to 10 socket connections
@@ -32,13 +33,16 @@ const mongooseOptions = {
 
 const connectWithRetry = () => {
   console.log('MongoDB connection with retry');
-  mongoose.connect(process.env.DATABASE_LOCAL, mongooseOptions).then(() => {
-  console.log('MongoDB is connected');
-  }).catch(err => {
-    handleError(err);
-    console.log('MongoDB connection unsuccessful, retry after 5 seconds.');
-    setTimeout(connectWithRetry, 5000);
-  });
+  mongoose
+    .connect(process.env.DATABASE_LOCAL, mongooseOptions)
+    .then(() => {
+      console.log('MongoDB is connected');
+    })
+    .catch(err => {
+      handleError(err);
+      console.log('MongoDB connection unsuccessful, retry after 5 seconds.');
+      setTimeout(connectWithRetry, 5000);
+    });
 }
 
 connectWithRetry();
@@ -51,10 +55,13 @@ app.use(cookieParser());
 // routes middleware
 app.use('/api', blogRoutes);
 app.use('/api', authRoutes);
+app.use('/api', userRoutes);
 
 // routes
 app.get('/api', (req, res) => {
-  res.json({ time: Date().toString() });
+  res.json({
+    time: Date().toString()
+  });
 });
 
 // port
