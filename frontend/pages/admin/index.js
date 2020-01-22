@@ -15,11 +15,10 @@ const AdminIndex = () => {
               <ul className="list-group">
                 <li className="list-group-item">
                   <Link href="/admin/crud/category-tag">
-                    <a>Create Category</a>
+                    <a>Create Categories / Tags</a>
                   </Link>
                 </li>
-                <li className="list-group-item">ghgrhfgdh</li>
-                <li className="list-group-item">tertret</li>
+                <li className="list-group-item">something...</li>
               </ul>
             </div>
             <div className="col-md-6">
